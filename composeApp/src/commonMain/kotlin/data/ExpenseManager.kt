@@ -11,7 +11,7 @@ object ExpenseManager {
         Expense(
            id = currentId++,
             amount = 70.0,
-            category = ExpenseCategory.GROCERIES,
+            category = ExpenseCategory.Hogar,
             description = "Weekly boy"
         ),
         Expense(
@@ -72,7 +72,7 @@ object ExpenseManager {
 
     fun getCateegories(): List<ExpenseCategory>{
         return listOf(
-            ExpenseCategory.GROCERIES,
+            ExpenseCategory.Hogar,
             ExpenseCategory.PARTY,
             ExpenseCategory.SNACKS,
             ExpenseCategory.COFFE,

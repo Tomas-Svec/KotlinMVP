@@ -4,6 +4,15 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    id("app.cash.sqldelight") version "2.0.1"
+}
+
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("org.expenseApp.db")
+        }
+    }
 }
 
 kotlin {
@@ -31,6 +40,10 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            //Koin
+            implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.1"))
+            implementation("io.insert-koin:koin-core")
+            implementation("io.insert-koin:koin-android")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -47,6 +60,15 @@ kotlin {
             //ViewModel
             api("moe.tlaster:precompose-viewmodel:1.5.10")
 
+            //Koin
+            implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.1"))
+            implementation("io.insert-koin:koin-core")
+            implementation("io.insert-koin:koin-compose")
+            api("moe.tlaster:precompose-koin:1.5.10")
+
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
 
     }

@@ -177,7 +177,7 @@ fun ExpenseAmount(
                 text = text,
                 fontSize = 25.sp,
                 fontWeight = androidx.compose.ui.text.font.FontWeight.ExtraBold,
-                color = colors.textColor
+                color = colors.colorEditText
             )
             TextField(
                 modifier = Modifier.weight(1f),
@@ -208,7 +208,7 @@ fun ExpenseAmount(
                 ),
                 singleLine = true,
                 colors = TextFieldDefaults.textFieldColors(
-                    textColor = colors.textColor,
+                    textColor = colors.colorEditText,
                     backgroundColor = colors.backgroundColor,
                     focusedIndicatorColor = Color.Transparent,
                     focusedLabelColor = Color.Transparent,
@@ -242,13 +242,13 @@ private fun ExpenseTypeSelector(
                 text = "Expensas vienen de: ",
                 fontSize = 20.sp,
                 fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
-                color = Color.Gray
+                color = colors.colorEditText
             )
             Text(
                 text = categorySelected,
                 fontSize = 20.sp,
                 fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
-                color = colors.textColor
+                color = colors.colorEditText
             )
         }
         IconButton(
@@ -280,7 +280,7 @@ fun ExpenseDescription(
             text = "Descripcion",
             fontSize = 20.sp,
             fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
-            color = Color.Gray
+            color = colors.colorEditText
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
@@ -293,7 +293,7 @@ fun ExpenseDescription(
             value = text,
             singleLine = true,
             colors = TextFieldDefaults.textFieldColors(
-                textColor = colors.textColor,
+                textColor = colors.colorEditText,
                 backgroundColor = colors.backgroundColor,
                 focusedIndicatorColor = Color.Transparent,
                 focusedLabelColor = Color.Transparent,

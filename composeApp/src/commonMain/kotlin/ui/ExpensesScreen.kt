@@ -90,7 +90,7 @@ fun AllExpensesHeader() {
             text = "All Expenses",
             fontWeight = FontWeight.ExtraBold,
             fontSize = 20.sp,
-            color = colors.textColor
+            color = colors.colorEditText
         )
         Button(
             shape = RoundedCornerShape(50),

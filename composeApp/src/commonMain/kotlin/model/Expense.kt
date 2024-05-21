@@ -20,7 +20,7 @@ data class Expense(
 }
 
 enum class ExpenseCategory(val icon: ImageVector){
-        GROCERIES(Icons.Default.FoodBank),
+        Hogar(Icons.Default.FoodBank),
         PARTY(Icons.Default.PartyMode),
         SNACKS(Icons.Default.Fastfood),
         COFFE(Icons.Default.Coffee),

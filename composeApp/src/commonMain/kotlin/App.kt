@@ -32,6 +32,7 @@ import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.viewmodel.viewModel
 import navigation.Navigation
+import org.koin.compose.KoinContext
 import presentacion.ExpensesUiState
 import presentacion.ExpensesViewModel
 import ui.ExpensesScreen
@@ -39,52 +40,60 @@ import ui.ExpensesScreen
 @Composable
 fun App() {
     PreComposeApp {
+        KoinContext {
 
-        val colors = getColorsTheme()
 
-        AppTheme {
-            val navigator = rememberNavigator()
-            val titleTopBar = getTitleTopAppBar(navigator)
-            val isEditOrAddExpenses = titleTopBar != TitleTopBarTypes.DASHBOARD.value
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),//Toma toda la pantalla
-                topBar = {
-                    TopAppBar(elevation = 0.dp,
-                        title = {
-                            Text(
-                                text = titleTopBar,
-                                fontSize = 25.sp,
-                                color = colors.textColor
-                            )
-                        },
-                        navigationIcon = {
-                            if (isEditOrAddExpenses) {
-                                IconButton(
-                                    onClick = {
-                                        navigator.popBackStack()
+            val colors = getColorsTheme()
+
+
+
+            AppTheme {
+                val navigator = rememberNavigator()
+                val titleTopBar = getTitleTopAppBar(navigator)
+                val isEditOrAddExpenses = titleTopBar != TitleTopBarTypes.DASHBOARD.value
+
+
+
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),//Toma toda la pantalla
+                    backgroundColor = colors.backgroundColor,
+                    topBar = {
+                        TopAppBar(
+                            title = {
+                                Text(
+                                    text = titleTopBar,
+                                    fontSize = 25.sp,
+                                    color = colors.textColor
+                                )
+                            },
+                            navigationIcon = {
+                                if (isEditOrAddExpenses) {
+                                    IconButton(
+                                        onClick = {
+                                            navigator.popBackStack()
+                                        }
+                                    ) {
+                                        Icon(
+                                            modifier = Modifier.padding(start = 16.dp),
+                                            imageVector = Icons.Default.ArrowBack,
+                                            tint = colors.textColor,
+                                            contentDescription = "Back Arrow Iconk"
+                                        )
                                     }
-                                ) {
+                                } else {
                                     Icon(
                                         modifier = Modifier.padding(start = 16.dp),
-                                        imageVector = Icons.Default.ArrowBack,
+                                        imageVector = Icons.Default.Apps,
                                         tint = colors.textColor,
-                                        contentDescription = "Back Arrow Iconk"
+                                        contentDescription = "Dashboard Icon"
                                     )
                                 }
-                            } else {
-                                Icon(
-                                    modifier = Modifier.padding(start = 16.dp),
-                                    imageVector = Icons.Default.Apps,
-                                    tint = colors.textColor,
-                                    contentDescription = "Dashboard Icon"
-                                )
-                            }
 
-                        }, backgroundColor = colors.backgroundColor
-                    )
-                },
+                            }, backgroundColor = colors.backgroundColor
+                        )
+                    },
                     floatingActionButton = {
-                        if(!isEditOrAddExpenses){
+                        if (!isEditOrAddExpenses) {
                             FloatingActionButton(
                                 modifier = Modifier.padding(8.dp),
                                 onClick = {
@@ -92,8 +101,9 @@ fun App() {
                                 },
                                 shape = RoundedCornerShape(50),
                                 backgroundColor = colors.addIconColor,
-                                contentColor = colors.backgroundColor
-                            ) {
+                                contentColor = colors.backgroundColor,
+
+                                ) {
                                 Icon(
                                     imageVector = Icons.Default.Add,
                                     tint = Color.White,
@@ -103,26 +113,28 @@ fun App() {
                         }
                     }
                 ) {
-                Navigation(navigator)
+                    Navigation(navigator)
+
+                }
             }
         }
     }
-}
-
-@Composable
-fun getTitleTopAppBar(navigator: Navigator): String {
-    var titleTopBar = TitleTopBarTypes.DASHBOARD
-
-    val isOnAddExpenses =
-        navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/addExpenses/{id}?")
-    if (isOnAddExpenses) {
-        titleTopBar = TitleTopBarTypes.ADD
     }
 
-    val isOnEditExpense = navigator.currentEntry.collectAsState(null).value?.path<Long>("id")
-    isOnEditExpense?.let {
-        titleTopBar = TitleTopBarTypes.EDIT
-    }
+    @Composable
+    fun getTitleTopAppBar(navigator: Navigator): String {
+        var titleTopBar = TitleTopBarTypes.DASHBOARD
 
-    return titleTopBar.value
-}
+        val isOnAddExpenses =
+            navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/addExpenses/{id}?")
+        if (isOnAddExpenses) {
+            titleTopBar = TitleTopBarTypes.ADD
+        }
+
+        val isOnEditExpense = navigator.currentEntry.collectAsState(null).value?.path<Long>("id")
+        isOnEditExpense?.let {
+            titleTopBar = TitleTopBarTypes.EDIT
+        }
+
+        return titleTopBar.value
+    }
