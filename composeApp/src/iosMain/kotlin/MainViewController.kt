@@ -1,13 +1,13 @@
-import androidx.compose.ui.window.ComposeUIViewController
+import data.DataBaseDriverFactoy
 import di.appModule
+import org.expenseApp.db.AppDatabase
 import org.koin.core.context.startKoin
-import org.koin.mp.KoinPlatform.startKoin
 
 
 //fun MainViewController() = ComposeUIViewController { App(CrossConfigDevice()) }
 
 fun initKoin() {
     startKoin{
-        modules(appModule())
+        modules(appModule(AppDatabase.invoke(DataBaseDriverFactoy().createDriver())))
     }.koin
 }

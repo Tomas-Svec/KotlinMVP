@@ -3,6 +3,7 @@ package previews
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,31 +26,33 @@ fun ExpensesTotalHeaderPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun AllExpensesPreview() {
-    AllExpensesHeader()
+fun AllExpensesHeaderPreview() {
+    Box(modifier = Modifier.padding(16.dp)) {
+        AllExpensesHeader()
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ExpensesItemPreview() {
-    Box(modifier = Modifier.padding(16.dp)) {
+    Box(modifier = Modifier.padding(8.dp)) {
         ExpensesItem(expense = ExpenseManager.fakeExpenseList[0], onExpenseClick = {})
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun ExpenseScreenPreview() {
+fun ExpenseScreenPreview() {
     ExpensesScreen(
-        uiState = ExpensesUiState(
+        uiState = ExpensesUiState.Success(
             expenses = ExpenseManager.fakeExpenseList,
-            total = 10.50
-        ), onExpenseClick = {})
+            total = 1052.2
+        ), onExpenseClick = {}, onDeleteExpense = {})
 }
 
-
+@OptIn(ExperimentalComposeUiApi::class)
 @Preview(showBackground = true)
 @Composable
 fun ExpenseAmountPreview() {
-   // ExpenseAmount(priceContent = 12.0, onPriceChange = {}, keyboardController = LocalSoftwareKeyboardController)
+    ExpenseAmount(priceContent = 12.0, onPriceChange = {}, keyboardController = LocalSoftwareKeyboardController.current)
 }
